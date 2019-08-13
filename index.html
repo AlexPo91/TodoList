@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="assets/styles/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,700i&display=swap" rel="stylesheet">
+
+</head>
+<body>
+<div class="task">
+    <div class="tabs">
+        <div class="tabs__caption">
+            <button type="button" class="tab active">Текущие задачи</button>
+            <button type="button" class="tab">Выполненные задачи</button>
+            <button type="button" class="tab">Удаленные задачи</button>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Добавить задание
+            </button>
+        </div>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body newTask">
+                <form class="addForm" action="#">
+                    <div class="form-group">
+                        <label>Название задачи<span style="color: red">*</span></label>
+                        <input type="text" class="form-control addForm" required="required" placeholder="Введите название задачи" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label>Описание задачи</label>
+                        <input type="text" class="form-control" placeholder="Введите описание задачи" name="description">
+                    </div>
+                    <div class="form-group">
+                        <label>Приоритет задачи</label><br>
+                        <input value="Триальное" type="radio" name="priority" />Триальное
+                        <input value="Бессрочное" type="radio" name="priority" checked/>Бессрочное
+                        <input value="Срочное" type="radio" name="priority"/>Срочное
+                    </div>
+                    <!--<input value="Reset" type="reset" class="reset"/>-->
+                    <button type="button" class="reset">Отменить</button>
+                    <button type="button" class="btn btn-primary add">Добавить</button>
+                </form>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Редактирование задачи</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="createForm" action="#">
+                            <div class="form-group">
+                                <label>Название задачи</label>
+                                <input type="text" class="form-control createForm" required="required" placeholder="Введите название задачи" name="name" novalidate="novalidate">
+                            </div>
+                            <div class="form-group">
+                                <label>Описание задачи</label>
+                                <input type="text" class="form-control" placeholder="Введите описание задачи" name="description">
+                            </div>
+                            <div class="form-group">
+                                <label>Приоритет задачи</label><br>
+                                <input value="Триальное" type="radio" name="priority" />Триальное
+                                <input value="Бессрочное" type="radio" name="priority" checked/>Бессрочное
+                                <input value="Срочное" type="radio" name="priority"/>Срочное
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary reset" data-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary create">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tabs__content">
+            <div class="content active current" data-event="current">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="tName">Задача</th>
+                        <th scope="col" class="tDescription">Описание</th>
+                        <th scope="col" class="tPriority">Приоритет</th>
+                        <th scope="col" class="tAct">Действие</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-body">
+                    </tbody>
+                </table>
+            </div>
+            <div class="content completed" data-event="completed">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="tName">Задача</th>
+                        <th scope="col" class="tDescription">Описание</th>
+                        <th scope="col" class="tPriority">Приоритет</th>
+                        <th scope="col" class="tAct">Действие</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-body">
+                    </tbody>
+                </table>
+            </div>
+            <div class="content deleted" data-event="deleted">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col" class="tName">Задача</th>
+                        <th scope="col" class="tDescription">Описание</th>
+                        <th scope="col" class="tPriority">Приоритет</th>
+                        <th scope="col" class="tAct">Действие</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="clear"><button type="button" class="btn clear">Очистить мой ToDo List</button></div>
+    </div>
+
+
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="script.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
