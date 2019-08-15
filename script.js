@@ -8,7 +8,7 @@ $(document).ready(function(){
         $('form.addForm').trigger('reset');
     });
 });
-function todo() {
+function todo(){
     var addBtn = $('.addForm :button.add');
     var currentBtn = '<td class="tAct">' + '<button class = "btnCreate">' + '<i class="fas fa-pencil-alt"></i>' + '</button>' + '<button class = "btnCompleted">' + '<i class="far fa-check-circle"></i>' + '</button>' + '<button class = "btnDelete">' + '<i class="far fa-trash-alt"></i>' + '</button>' + '</td>';
     var completedBtn = '<td class="tAct">' + '<button class = "btnCreate">' + '<i class="fas fa-pencil-alt"></i>' + '</button>' + '<button class = "btnDelete">' + '<i class="far fa-trash-alt"></i>' + '</button>' + '</td>';
@@ -26,49 +26,49 @@ function todo() {
             out(task.current, currentBtn, $('.current .table-body'));
             out(task.completed, completedBtn, $('.completed .table-body'));
             out(task.deleted, deleteBtn, $('.deleted .table-body'));
-        };
+        }
         event();
     })();
-    function event() {
-        addBtn.on('click', function () {
+    function event(){
+        addBtn.on('click', function(){
             validate()
         });
-        $(document).on('click', '.btnDelete', function () {
+        $(document).on('click', '.btnDelete', function(){
             var index = this.closest('tr').rowIndex - 1;
             var elem = this.closest('tr');
             var tab = $('.content.active').data().event;
             deleteTask(index, tab, elem);
         });
-        $(document).on('click', '.btnRestore', function () {
+        $(document).on('click', '.btnRestore', function(){
             var index = this.closest('tr').rowIndex - 1;
             var elem = this.closest('tr');
             var tab = $('.content.active').data().event;
             restoreTask(index, tab, elem)
         });
-        $(document).on('click', '.btnCompleted', function () {
+        $(document).on('click', '.btnCompleted', function(){
             var index = this.closest('tr').rowIndex - 1;
             var elem = this.closest('tr');
             completedTask(index, elem)
         });
-        $(document).on('click', '.btnCreate', function () {
+        $(document).on('click', '.btnCreate', function(){
                 index = this.closest('tr').rowIndex - 1;
                 tab = $('.content.active').data().event;
                 setValue(index, tab);
             }
         );
-        $(document).on('click', '.create', function () {
+        $(document).on('click', '.create', function(){
             createTask(tab, index);
             resetForm()
         });
-        $(document).on('click', '.reset', function () {
+        $(document).on('click', '.reset', function(){
             resetForm()
         });
-        $(document).on('click', ':button.clear', function () {
+        $(document).on('click', ':button.clear', function(){
             clearLocal();
         })
     }
     //------Функция на добавление задачи-----
-    function addTask() {
+    function addTask(){
         var newTask = {};
         newTask.name = $(".addForm input[name='name']").val();
         newTask.description = $(".addForm input[name='description']").val();
@@ -76,21 +76,24 @@ function todo() {
         task.current.push(newTask);
         $('#collapseExample').collapse('hide');
         $('form.addForm').trigger('reset');
+        $('.currentTabs').addClass('active').siblings().removeClass('active')
+            .closest('div.tabs').find('div.content').removeClass('active');
+        $('.current').addClass('active');
         out(task.current, currentBtn, $('.current .table-body'));
         localStorage.setItem('myTodo', JSON.stringify(task));
     }
     //-----Функция на проверку------
-    function validate() {
-        if ($(':button').hasClass('add')) {
-            if ($(".addForm")[0].checkValidity()) {
+    function validate(){
+        if ($(':button').hasClass('add')){
+            if ($(".addForm")[0].checkValidity()){
                 addTask();
-            } else {
+            } else{
                 $(".addForm")[0].reportValidity();
             }
         }
     }
     //-----Функция на вывод в таблице-----
-    function out(data, buttons, tab) {
+    function out(data, buttons, tab){
         var outCreate = '';
         for (var i = 0; i < data.length; i++) {
             outCreate += '<tr class="strTable">' + '<td class="tName">' + data[i].name + '</td>' + '<td class="tDescription">' + data[i].description + '</td>' + '<td class="tPriority">' + data[i].priority + '</td>' + buttons + '</tr>'
@@ -99,7 +102,7 @@ function todo() {
         colorTable()
     }
     //-----Функция на удаление-----
-    function deleteTask(index, tab, elem) {
+    function deleteTask(index, tab, elem){
         task.deleted.push(task[tab][index]);
         task[tab].splice(index, 1);
         elem.remove(index);
@@ -107,7 +110,7 @@ function todo() {
         localStorage.setItem('myTodo', JSON.stringify(task));
     }
     //-----Функция на восстановление-----
-    function restoreTask(index, tab, elem) {
+    function restoreTask(index, tab, elem){
         elem.remove(index);
         task.current.push(task[tab][index]);
         task[tab].splice(index, 1);
@@ -115,7 +118,7 @@ function todo() {
         localStorage.setItem('myTodo', JSON.stringify(task));
     }
     //-----Функция на перенос в выполненные-----
-    function completedTask(index, elem) {
+    function completedTask(index, elem){
         var completedTask = task.current[index];
         task.current.splice(index, 1);
         elem.remove(index);
@@ -124,7 +127,7 @@ function todo() {
         localStorage.setItem('myTodo', JSON.stringify(task));
     }
     //-----Функция на изменение задачи-----
-    function createTask(tab, index) {
+    function createTask(tab, index){
         $('#exampleModalCenter').modal('hide');
         if (tab === 'current') {
             task.current[index].name = $(".createForm input[name='name']").val();
@@ -141,13 +144,13 @@ function todo() {
         }
     }
     //-----Сброс формы-----
-    function resetForm() {
+    function resetForm(){
         $('#collapseExample').collapse('hide');
         $('form.addForm').trigger('reset');
         $('form.createForm').trigger('reset');
     }
     //-----Очистка локального хранилища-----
-    function clearLocal() {
+    function clearLocal(){
         var result = confirm('Очистить Todo?');
         if (result) {
             localStorage.removeItem('myTodo');
@@ -155,13 +158,13 @@ function todo() {
         }
     }
     //-----Заполнение модального окна данными из строки при редактирование-----
-    function setValue(index, tab) {
+    function setValue(index, tab){
         $('#exampleModalCenter').modal('show');
         $(".createForm input[name='name']").attr('value', task[tab][index].name);
         $(".createForm input[name='description']").attr('value', task[tab][index].description);
-    };
+    }
     //-----Изменение строк таблицы в зависимости от приоритета-----
-    function colorTable() {
+    function colorTable(){
         var tablePriority = $('.tPriority');
         for (var i = 0; i < tablePriority.length; i++) {
             if (tablePriority[i].innerHTML === 'Триальное') {
