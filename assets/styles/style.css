@@ -130,3 +130,12 @@ table {
 table tr td {
     word-break: break-all;
 }
+
+[type=radio]{
+    margin-right: 5px;
+}
+
+.prior {
+    display: inline-block;
+    margin-right: 20px;
+}
